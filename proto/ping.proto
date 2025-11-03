@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package ping;
+
+option go_package = "grpc-ping/gen/proto;ping";
+
+service PingService {
+  rpc Ping(Empty) returns (PongResponse);
+}
+
+message Empty {} // empty request
+
+message PongResponse {
+  string message = 1;
+}
