@@ -11,6 +11,7 @@ import (
 	zerolog "github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/peer"
+	"google.golang.org/grpc/reflection"
 )
 
 type server struct {
@@ -40,6 +41,9 @@ func main() {
 
 	s := grpc.NewServer()
 	pb.RegisterPingServiceServer(s, &server{})
+
+	// Enable gRPC reflection for tools like grpcurl
+	reflection.Register(s)
 
 	fmt.Println("🚀 gRPC Ping server started on port 50051")
 	if err := s.Serve(lis); err != nil {
